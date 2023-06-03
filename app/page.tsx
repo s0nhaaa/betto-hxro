@@ -1,22 +1,24 @@
 'use client'
 
+import Avatars from '@/components/avatars'
+import MyInformation from '@/components/my-information'
 import OnboardingModal from '@/components/onboarding-modal'
+import ParimutualProvider from '@/components/parimutual-provider'
 import Scene from '@/components/scene'
 import WalletAdapter from '@/components/wallet-adapter'
 
 export default function Home() {
   return (
     <WalletAdapter>
-      <main className='h-screen w-full bg-base-100'>
+      <main className='relative h-screen w-full bg-base-100'>
+        <ParimutualProvider />
+
         <OnboardingModal />
         <Scene />
 
-        {/* <Avatar
-  size={40}
-  name="Maria Mitchell"
-  variant="marble"
-  colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
-/>; */}
+        <MyInformation />
+
+        <Avatars />
       </main>
     </WalletAdapter>
   )

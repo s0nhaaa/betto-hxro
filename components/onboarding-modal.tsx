@@ -23,35 +23,37 @@ export default function OnboardingModal() {
   }, [publicKey])
 
   return (
-    <dialog
-      id='my_modal_1'
-      className={clsx('modal', {
-        'modal-open': modal.isOpen,
-      })}>
-      <form method='dialog' className='modal-box'>
-        <h3 className='font-bold text-lg'>
-          Welcom {publicKey ? `${formatWallet(publicKey.toString())} 👋` : 'to Betto!'}
-        </h3>
-        <p className='py-4 text-neutral-content'>Press ESC key or click the button below to close</p>
-        <div className='modal-action'>
-          {!publicKey ? (
-            <>
-              <button className='btn btn-primary' onClick={() => setVisible(true)}>
-                Connect Wallet
-              </button>
-            </>
-          ) : (
-            <>
-              <button className='btn' onClick={changeWallet}>
-                Change Wallet
-              </button>
-              <button className='btn btn-primary' onClick={() => modal.setIsOpen(false)}>
-                Jump in
-              </button>
-            </>
-          )}
-        </div>
-      </form>
-    </dialog>
+    <>
+      <dialog
+        id='my_modal_1'
+        className={clsx('modal', {
+          'modal-open': modal.isOpen,
+        })}>
+        <form method='dialog' className='modal-box'>
+          <h3 className='font-bold text-lg'>
+            Welcom {publicKey ? `${formatWallet(publicKey.toString())} 👋` : 'to Betto!'}
+          </h3>
+          <p className='py-4 text-neutral-content'>Press ESC key or click the button below to close</p>
+          <div className='modal-action'>
+            {!publicKey ? (
+              <>
+                <button className='btn btn-primary' onClick={() => setVisible(true)}>
+                  Connect Wallet
+                </button>
+              </>
+            ) : (
+              <>
+                <button className='btn' onClick={changeWallet}>
+                  Change Wallet
+                </button>
+                <button className='btn btn-primary' onClick={() => modal.setIsOpen(false)}>
+                  Jump in
+                </button>
+              </>
+            )}
+          </div>
+        </form>
+      </dialog>
+    </>
   )
 }
