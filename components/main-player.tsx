@@ -1,6 +1,7 @@
 import { OFFSET } from '@/configs/app'
 import { database } from '@/configs/firebase'
 import { useControls } from '@/hooks/useControls'
+import usePlayerWallet from '@/hooks/usePlayerWalletAddress'
 import { directionOffset } from '@/utils/direction-offset'
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
@@ -29,6 +30,7 @@ export default function MainPlayer(props: MainPlayerProps) {
   const playerRef = useRef<Group>(null)
   const orbitControlRef = useRef<OrbitControlsImpl>(null)
   const rigidBodyRef = useRef<RapierRigidBody>(null)
+  const playerWallet = usePlayerWallet((state) => state.wallet)
 
   const { forward, backward, left, right } = useControls()
 
@@ -56,6 +58,7 @@ export default function MainPlayer(props: MainPlayerProps) {
       if (frameCount.current % OFFSET === 0) {
         set(ref(database, `players/${props.uid}`), {
           id: props.uid,
+          walletAddress: playerWallet,
           position: {
             x: playerRef.current.position.x,
             y: playerRef.current.position.y,

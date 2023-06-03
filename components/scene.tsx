@@ -2,7 +2,9 @@ import Ground from '@/components/ground'
 import MainPlayer from '@/components/main-player'
 import Player from '@/components/player'
 import { auth, database } from '@/configs/firebase'
+import usePlayerWallet from '@/hooks/usePlayerWalletAddress'
 import { Players } from '@/types/player'
+import { Loader } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { Physics } from '@react-three/rapier'
 import { onAuthStateChanged, signInAnonymously } from 'firebase/auth'
@@ -13,6 +15,7 @@ export default function Scene() {
   const [mainPlayerUid, setMainPlayerUid] = useState('')
   const [players, setPlayers] = useState<Players>()
   const [isSignIn, setIsSignIn] = useState(false)
+  const playerWallet = usePlayerWallet((state) => state.wallet)
 
   useEffect(() => {
     signInAnonymously(auth)
@@ -25,30 +28,32 @@ export default function Scene() {
         console.log(errorCode, errorMessage)
       })
 
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const uid = user.uid
-        setMainPlayerUid(uid)
-        await set(ref(database, `players/${uid}`), {
-          id: uid,
-          position: {
-            x: 0,
-            y: 0,
-            z: 0,
-          },
-          quaternion: {
-            x: 0,
-            y: 0,
-            z: 0,
-            w: 0,
-          },
-        }).catch((error) => {
-          console.log(error)
-        })
-      } else {
-        remove(ref(database, `players/${mainPlayerUid}`))
-      }
-    })
+    playerWallet &&
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const uid = user.uid
+          setMainPlayerUid(uid)
+          await set(ref(database, `players/${uid}`), {
+            id: uid,
+            walletAddress: playerWallet,
+            position: {
+              x: 0,
+              y: 0,
+              z: 0,
+            },
+            quaternion: {
+              x: 0,
+              y: 0,
+              z: 0,
+              w: 0,
+            },
+          }).catch((error) => {
+            console.log(error)
+          })
+        } else {
+          remove(ref(database, `players/${mainPlayerUid}`))
+        }
+      })
 
     window.addEventListener('beforeunload', () => {
       remove(ref(database, `players/${mainPlayerUid}`))
@@ -57,7 +62,7 @@ export default function Scene() {
     return () => {
       remove(ref(database, `players/${mainPlayerUid}`))
     }
-  }, [mainPlayerUid])
+  }, [mainPlayerUid, playerWallet])
 
   useEffect(() => {
     if (!isSignIn) return
@@ -79,19 +84,22 @@ export default function Scene() {
   }, [isSignIn])
 
   return (
-    <Canvas className='h-full w-full'>
-      <mesh>
-        <boxGeometry />
-        <meshNormalMaterial />
-      </mesh>
+    <>
+      <Canvas className='h-full w-full'>
+        <mesh>
+          <boxGeometry />
+          <meshNormalMaterial />
+        </mesh>
 
-      <ambientLight intensity={1} />
+        <ambientLight intensity={1} />
 
-      <Physics debug>
-        {players && mainPlayerUid && <Player players={players} mainPlayerId={mainPlayerUid} />}
-        <MainPlayer uid={mainPlayerUid} />
-        <Ground />
-      </Physics>
-    </Canvas>
+        <Physics debug>
+          {players && mainPlayerUid && <Player players={players} mainPlayerId={mainPlayerUid} />}
+          <MainPlayer uid={mainPlayerUid} />
+          <Ground />
+        </Physics>
+      </Canvas>
+      <Loader />
+    </>
   )
 }

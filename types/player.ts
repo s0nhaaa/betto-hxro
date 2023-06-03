@@ -1,5 +1,6 @@
 export type Player = {
   id: string
+  walletAddress: string
   position: {
     x: number
     y: number
