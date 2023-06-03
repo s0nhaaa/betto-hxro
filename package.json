@@ -23,7 +23,7 @@
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
     "boring-avatars": "^1.7.0",
-    "bs58": "^5.0.0",
+    "bs58": "^4.0.1",
     "clsx": "^1.2.1",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
@@ -41,6 +41,7 @@
     "zustand": "^4.3.8"
   },
   "devDependencies": {
+    "@types/bs58": "^4.0.1",
     "daisyui": "^3.0.1"
   }
 }
