@@ -1,26 +1,18 @@
 import useOnBoardingModal from '@/hooks/useOnboardingModal'
-import usePlayerWallet from '@/hooks/usePlayerWalletAddress'
 import { formatWallet } from '@/utils/format-wallet'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import clsx from 'clsx'
-import { useEffect } from 'react'
 
 export default function OnboardingModal() {
   const { publicKey, disconnect } = useWallet()
-  const modal = useOnBoardingModal()
   const { setVisible } = useWalletModal()
-  const setWallet = usePlayerWallet((state) => state.setWallet)
+  const modal = useOnBoardingModal()
 
   const changeWallet = async () => {
     await disconnect()
     setVisible(true)
   }
-
-  useEffect(() => {
-    publicKey && setWallet(publicKey.toString())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [publicKey])
 
   return (
     <>

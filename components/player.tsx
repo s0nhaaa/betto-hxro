@@ -4,6 +4,7 @@ import { Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import { Group, Quaternion, Vector3 } from 'three'
+import BasePlayer from './base-player'
 
 type PlayerProps = {
   players: Players
@@ -52,10 +53,7 @@ function Other(props: OtherProps) {
 
   return (
     <group ref={playerRef}>
-      <mesh>
-        <boxGeometry args={[2, 4, 2]} />
-        <meshStandardMaterial color='yellow' />
-      </mesh>
+      <BasePlayer />
       <Html position={[0, 3, 0]} center>
         <span className='px-3 py-2 rounded-lg bg-base-200 select-none'>{formatWallet(props.walletAddress)}</span>
       </Html>

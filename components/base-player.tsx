@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function BasePlayer() {
   return (
     <group>
@@ -7,9 +5,9 @@ export default function BasePlayer() {
         <capsuleGeometry args={[1, 2]} />
         <meshStandardMaterial color='mediumpurple' />
       </mesh>
-      <mesh castShadow position={[0, 1.65, 1]}>
+      <mesh castShadow position={[0, 1.5, 0.5]}>
         <boxGeometry args={[1, 0.5, 1]} />
-        <meshNormalMaterial />
+        <meshStandardMaterial color='mediumpurple' />
       </mesh>
     </group>
   )

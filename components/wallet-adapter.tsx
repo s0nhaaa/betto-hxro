@@ -1,7 +1,13 @@
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base'
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react'
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
-import { BackpackWalletAdapter, PhantomWalletAdapter } from '@solana/wallet-adapter-wallets'
+import {
+  BackpackWalletAdapter,
+  GlowWalletAdapter,
+  PhantomWalletAdapter,
+  SlopeWalletAdapter,
+  SolflareWalletAdapter,
+} from '@solana/wallet-adapter-wallets'
 import { clusterApiUrl } from '@solana/web3.js'
 import { ReactNode, useMemo } from 'react'
 
@@ -14,11 +20,16 @@ type WalletAdapterProps = {
 export default function WalletAdapter(props: WalletAdapterProps) {
   const network = WalletAdapterNetwork.Devnet
 
-  // const endpoint = useMemo(() => clusterApiUrl(network), [network])
-  const endpoint = 'https://rpc-devnet.helius.xyz/?api-key=952219b9-42f3-4b93-b8c3-0ecc416f5a9d'
+  const endpoint = (process.env.NEXT_PUBLIC_RPC_ENDPOINT as string) || clusterApiUrl(network)
 
   const wallets = useMemo(
-    () => [new PhantomWalletAdapter(), new BackpackWalletAdapter()],
+    () => [
+      new PhantomWalletAdapter(),
+      new BackpackWalletAdapter(),
+      new SlopeWalletAdapter(),
+      new SolflareWalletAdapter(),
+      new GlowWalletAdapter(),
+    ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [network],
   )

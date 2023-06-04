@@ -1,12 +1,10 @@
+// @ts-nocheck
+
+import { parimutualConfig } from '@/configs/hxro'
+import useParimutuel from '@/hooks/useParimutuel'
 import { ParimutuelObject } from '@/types/parimutuel-object'
 import { formatWallet } from '@/utils/format-wallet'
-import {
-  DEVNET_CONFIG,
-  MarketPairEnum,
-  ParimutuelWeb3,
-  calculateNetOdd,
-  getMarketPubkeys,
-} from '@hxronetwork/parimutuelsdk'
+import { MarketPairEnum, ParimutuelWeb3, calculateNetOdd, getMarketPubkeys } from '@hxronetwork/parimutuelsdk'
 import { useConnection } from '@solana/wallet-adapter-react'
 import { ArrowDown, ArrowUp } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
@@ -20,8 +18,13 @@ export default function ParimutuelBoard() {
   const { connection } = useConnection()
   const [state, copyToClipboard] = useCopyToClipboard()
 
-  const parimutuelWeb3 = useMemo(() => new ParimutuelWeb3(DEVNET_CONFIG, connection), [connection])
-  const marketPubkey = useMemo(() => getMarketPubkeys(DEVNET_CONFIG, MarketPairEnum.SOLUSD)[0], [])
+  const parimutuelWeb3 = useMemo(() => new ParimutuelWeb3(parimutualConfig.config, connection), [connection])
+  const marketPubkey = useMemo(() => getMarketPubkeys(parimutualConfig.config, MarketPairEnum.SOLUSD)[0], [])
+
+  const [parimutuelPubkey, setParimutuelPubkey] = useParimutuel((state) => [
+    state.parimutuelPubkey,
+    state.setParimutuelPubkey,
+  ])
 
   useEffect(() => {
     const getPariData = async () => {
@@ -55,6 +58,7 @@ export default function ParimutuelBoard() {
         longPool = longPool.toFixed(2)
         shortPool = shortPool.toFixed(2)
 
+        setParimutuelPubkey(pubkey)
         setParimutuelObject({ longPool, shortPool, longOdds, shortOdds, pubkey })
       } catch (error) {
         console.error(error)

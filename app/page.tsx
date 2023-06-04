@@ -10,14 +10,16 @@ import WalletAdapter from '@/components/wallet-adapter'
 export default function Home() {
   return (
     <WalletAdapter>
-      <main className='relative h-screen w-full bg-base-100'>
+      <main className='relative h-screen w-full bg-base-100 overflow-hidden'>
         <ParimutuelBoard />
+
         <OnboardingModal />
-        {/* <Scene /> */}
+
+        <Scene />
 
         <MyInformation />
 
-        {/* <Avatars /> */}
+        <Avatars />
       </main>
     </WalletAdapter>
   )

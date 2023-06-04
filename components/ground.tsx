@@ -1,5 +1,4 @@
 import { RigidBody } from '@react-three/rapier'
-import React, { useRef } from 'react'
 
 export default function Ground() {
   return (
