@@ -14,7 +14,8 @@ type WalletAdapterProps = {
 export default function WalletAdapter(props: WalletAdapterProps) {
   const network = WalletAdapterNetwork.Devnet
 
-  const endpoint = useMemo(() => clusterApiUrl(network), [network])
+  // const endpoint = useMemo(() => clusterApiUrl(network), [network])
+  const endpoint = 'https://rpc-devnet.helius.xyz/?api-key=952219b9-42f3-4b93-b8c3-0ecc416f5a9d'
 
   const wallets = useMemo(
     () => [new PhantomWalletAdapter(), new BackpackWalletAdapter()],

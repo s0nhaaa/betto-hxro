@@ -10,11 +10,12 @@ module.exports = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'scene-gradient': 'linear-gradient(0deg, rgba(253, 228, 255, 1) 0%, rgba(124, 156, 254, 1) 100%)',
       },
     },
   },
   daisyui: {
-    themes: ['dark'],
+    themes: ['dark', 'light'],
   },
   plugins: [require('daisyui')],
 }

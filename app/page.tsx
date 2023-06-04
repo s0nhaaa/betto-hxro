@@ -3,7 +3,7 @@
 import Avatars from '@/components/avatars'
 import MyInformation from '@/components/my-information'
 import OnboardingModal from '@/components/onboarding-modal'
-import ParimutualProvider from '@/components/parimutual-provider'
+import ParimutuelBoard from '@/components/parimutuel-board'
 import Scene from '@/components/scene'
 import WalletAdapter from '@/components/wallet-adapter'
 
@@ -11,14 +11,13 @@ export default function Home() {
   return (
     <WalletAdapter>
       <main className='relative h-screen w-full bg-base-100'>
-        <ParimutualProvider />
-
+        <ParimutuelBoard />
         <OnboardingModal />
-        <Scene />
+        {/* <Scene /> */}
 
         <MyInformation />
 
-        <Avatars />
+        {/* <Avatars /> */}
       </main>
     </WalletAdapter>
   )

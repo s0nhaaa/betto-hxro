@@ -84,21 +84,30 @@ export default function Scene() {
 
   return (
     <>
-      {/* <Canvas className='h-full w-full'>
-        <mesh>
-          <boxGeometry />
-          <meshNormalMaterial />
-        </mesh>
+      <Canvas className='h-full w-full bg-scene-gradient' shadows>
+        <directionalLight
+          castShadow
+          position={[20, 30, 10]}
+          intensity={1.5}
+          shadow-mapSize={[1024, 1024]}
+          shadow-camera-near={1}
+          shadow-camera-far={50}
+          shadow-camera-top={50}
+          shadow-camera-right={50}
+          shadow-camera-bottom={-50}
+          shadow-camera-left={-50}
+        />
+        <ambientLight intensity={0.5} />
 
         <ambientLight intensity={1} />
 
         <Physics debug>
           {players && mainPlayerUid && <Player players={players} mainPlayerId={mainPlayerUid} />}
-          <MainPlayer uid={mainPlayerUid} />
+          <MainPlayer key={mainPlayerUid} uid={mainPlayerUid} />
           <Ground />
         </Physics>
       </Canvas>
-      <Loader /> */}
+      <Loader />
     </>
   )
 }
