@@ -2,7 +2,6 @@ import Ground from '@/components/ground'
 import MainPlayer from '@/components/main-player'
 import Player from '@/components/player'
 import { auth, database } from '@/configs/firebase'
-import usePlayerWallet from '@/hooks/usePlayerWalletAddress'
 import usePlayerStore from '@/stores/player'
 import { Loader } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
@@ -23,15 +22,14 @@ import useParimutuel from '@/hooks/useParimutuel'
 export default function Scene() {
   const [mainPlayerUid, setMainPlayerUid] = useState('')
   const [isSignIn, setIsSignIn] = useState(false)
-  // const playerWallet = usePlayerWallet((state) => state.wallet)
   const [players, setPlayers] = usePlayerStore((state) => [state.players, state.setPlayers])
   const [isReadyLong, setIsReadyLong] = useState(false)
   const [isReadyShort, setIsReadyShort] = useState(false)
   const [showAmount, setShowAmount] = useState(false)
   const [placingPosition, setPlacingPosition] = useState(false)
-  const [choosenAmount, setChoosenAmount] = useState<number>(0)
+  const [choosenAmount, setChoosenAmount] = useState(0)
   const [currentPosition, setCurrentPosition] = useState<'LONG' | 'SHORT' | undefined>()
-  const { publicKey, signTransaction } = useWallet()
+  const { publicKey } = useWallet()
   const wallet = useWallet()
   const { connection } = useConnection()
 
@@ -170,7 +168,7 @@ export default function Scene() {
 
         <ambientLight intensity={1} />
 
-        <Physics debug>
+        <Physics>
           {players && mainPlayerUid && <Player players={players} mainPlayerId={mainPlayerUid} />}
           <MainPlayer key={mainPlayerUid} uid={mainPlayerUid} />
           <Ground />

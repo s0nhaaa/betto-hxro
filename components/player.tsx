@@ -5,6 +5,7 @@ import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import { Group, Quaternion, Vector3 } from 'three'
 import BasePlayer from './base-player'
+import { generatePlayerColor } from '@/utils/generate-player-color'
 
 type PlayerProps = {
   players: Players
@@ -53,7 +54,7 @@ function Other(props: OtherProps) {
 
   return (
     <group ref={playerRef}>
-      <BasePlayer />
+      <BasePlayer color={generatePlayerColor(props.walletAddress)} />
       <Html position={[0, 3, 0]} center>
         <span className='px-3 py-2 rounded-lg bg-base-200 select-none'>{formatWallet(props.walletAddress)}</span>
       </Html>

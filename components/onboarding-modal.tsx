@@ -25,7 +25,7 @@ export default function OnboardingModal() {
           <h3 className='font-bold text-lg'>
             Welcom {publicKey ? `${formatWallet(publicKey.toString())} 👋` : 'to Betto!'}
           </h3>
-          <p className='py-4 text-neutral-content'>Press ESC key or click the button below to close</p>
+          <p className='py-4 text-neutral-content'>Betting with your friend, copy website link and invite them</p>
           <div className='modal-action'>
             {!publicKey ? (
               <>

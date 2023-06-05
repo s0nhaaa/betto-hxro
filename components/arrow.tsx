@@ -13,7 +13,7 @@ export default function Arrow({ color, ...props }: JSX.IntrinsicElements['group'
 
   return (
     <group {...props}>
-      <mesh scale={[0.5, 1, 0.55]} rotation={[0, Math.PI / 2, 0]} geometry={nodes.Cube.geometry}>
+      <mesh castShadow scale={[0.5, 1, 0.55]} rotation={[0, Math.PI / 2, 0]} geometry={nodes.Cube.geometry}>
         <meshStandardMaterial color={color} />
         <Edges scale={1.003} color='white' />
       </mesh>

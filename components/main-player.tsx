@@ -2,6 +2,7 @@ import { OFFSET } from '@/configs/app'
 import { database } from '@/configs/firebase'
 import { useControls } from '@/hooks/useControls'
 import { directionOffset } from '@/utils/direction-offset'
+import { generatePlayerColor } from '@/utils/generate-player-color'
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { CuboidCollider, RapierRigidBody, RigidBody } from '@react-three/rapier'
@@ -118,9 +119,7 @@ export default function MainPlayer(props: MainPlayerProps) {
           <CuboidCollider args={[1.5, 4, 1.5]} />
         </RigidBody>
 
-        <group ref={playerRef}>
-          <BasePlayer />
-        </group>
+        <group ref={playerRef}>{publicKey && <BasePlayer color={generatePlayerColor(publicKey.toString())} />}</group>
       </group>
     </>
   )
